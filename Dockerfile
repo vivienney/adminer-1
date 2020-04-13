@@ -1,15 +1,15 @@
-FROM alpine:3.10
+FROM alpine:3.11
 
 LABEL description "Adminer is a full-featured database management tool" \
       maintainer="Hardware <contact@meshup.net>"
 
-ARG VERSION=4.7.2
-ARG SHA256_HASH="187f7887c76fb6a39b08a34fad07df859672b2cbb6060d543206ca77136628a4"
+ARG VERSION=4.7.6
+ARG SHA256_HASH="78F718F3B60FAA1D1765AF6C0010465F8D780FCAF8990A9E9223CE9C716DE2D2"
 ARG THEME=pepa-linha
 
 ENV GID=991 UID=991
 
-RUN echo "@community https://nl.alpinelinux.org/alpine/v3.10/community" >> /etc/apk/repositories \
+RUN echo "@community https://nl.alpinelinux.org/alpine/v3.11/community" >> /etc/apk/repositories \
  && apk -U upgrade \
  && apk add -t build-dependencies \
     ca-certificates \
@@ -19,6 +19,7 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.10/community" >> /etc/
     tini@community \
     php7@community \
     php7-session@community \
+    php7-json@testing \
     php7-pdo_mysql@community \
     php7-pdo_pgsql@community \
     php7-pdo_sqlite@community \
