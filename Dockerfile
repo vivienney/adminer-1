@@ -19,7 +19,6 @@ RUN echo "@community https://nl.alpinelinux.org/alpine/v3.11/community" >> /etc/
     tini@community \
     php7@community \
     php7-session@community \
-    php7-json@testing \
     php7-pdo_mysql@community \
     php7-pdo_pgsql@community \
     php7-pdo_sqlite@community \
