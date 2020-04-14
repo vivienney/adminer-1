@@ -4,7 +4,7 @@ LABEL description "Adminer is a full-featured database management tool" \
       maintainer="Hardware <contact@meshup.net>"
 
 ARG VERSION=4.7.6
-ARG SHA256_HASH="78F718F3B60FAA1D1765AF6C0010465F8D780FCAF8990A9E9223CE9C716DE2D2"
+ARG SHA256_HASH="78f718f3b60faa1d1765af6c0010465f8d780fcaf8990a9e9223ce9c716de2d2"
 ARG THEME=pepa-linha
 
 ENV GID=991 UID=991
