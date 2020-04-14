@@ -15,7 +15,6 @@
   <Networking>
     <Publish>
       <Port>
-        <HostPort>8888</HostPort>
         <ContainerPort>80</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
