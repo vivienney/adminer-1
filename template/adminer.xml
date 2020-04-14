@@ -10,16 +10,17 @@
   <Category>Tools:</Category>
   <WebUI>http://[IP]:[PORT:8888]</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/vivienney/adminer-docker/master/templates/adminer.xml</TemplateURL>
-  <Icon>https://raw.githubusercontent.com/vivienney/adminer-docker/master/templates/icon.png</Icon>
+  <Icon>https://raw.githubusercontent.com/vivienney/adminer-docker/master/template/icon.png</Icon>
   <Description>Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. Conversely to phpMyAdmin, it consist of a single file ready to deploy to the target server. Adminer is available for MySQL, PostgreSQL, SQLite, MS SQL, Oracle, Firebird, SimpleDB, Elasticsearch and MongoDB.&#xD;</Description>
   <Networking>
     <Publish>
       <Port>
+        <HostPort>8888</HostPort>
         <ContainerPort>80</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
     </Publish>
   </Networking>
   <Data/>
-  <Config Name="WebUI Port" Target="8888" Default="8888" Mode="tcp" Description="Container Port: 8080" Type="Port" Display="always" Required="true" Mask="false"/>
+  <Config Name="WebUI Port" Target="80" Default="80" Mode="tcp" Description="Container Port: 80" Type="Port" Display="always" Required="true" Mask="false"/>
 </Container>
