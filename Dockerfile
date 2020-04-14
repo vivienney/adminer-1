@@ -1,41 +1,38 @@
-FROM alpine:3.11
+FROM alpine:edge
 
-LABEL description "Adminer is a full-featured database management tool" \
-      maintainer="Hardware <contact@meshup.net>"
+LABEL description "Adminer is a full-featured database management tool"
 
-ARG VERSION=4.7.6
-ARG SHA256_HASH="78f718f3b60faa1d1765af6c0010465f8d780fcaf8990a9e9223ce9c716de2d2"
-ARG THEME=pepa-linha
+ENV ADMINER_PM_VERION=1.8
+ENV MEMORY=256M
+ENV UPLOAD=2048M
 
-ENV GID=991 UID=991
+RUN echo '@testing http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
+    echo '@community http://nl.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
+    apk update && \
+    apk upgrade && \
+    apk add \
+        wget \
+        ca-certificates \
+        php7@testing \
+        php7-session@testing \
+        php7-mysqli@community \
+        php7-pgsql@testing \
+        php7-json@testing \
+        php7-pecl-mongodb@testing \
+        dumb-init && \
+    wget https://github.com/pematon/adminer-custom/archive/v$ADMINER_PM_VERION.tar.gz -O /srv/adminer.tgz && \
+    tar zxvf /srv/adminer.tgz --strip-components=1 -C /srv && \
+    rm /srv/adminer.tgz && \
+    apk del wget ca-certificates && \
+    rm -rf /var/cache/apk/*
 
-RUN echo "@community https://nl.alpinelinux.org/alpine/v3.11/community" >> /etc/apk/repositories \
- && apk -U upgrade \
- && apk add -t build-dependencies \
-    ca-certificates \
-    openssl \
- && apk add \
-    su-exec \
-    tini@community \
-    php7@community \
-    php7-session@community \
-    php7-pdo_mysql@community \
-    php7-pdo_pgsql@community \
-    php7-pdo_sqlite@community \
- && cd /tmp \
- # Download and install adminer and alternative design
- && ADMINER_FILE="adminer-${VERSION}.php" \
- && wget -q https://github.com/vrana/adminer/releases/download/v${VERSION}/${ADMINER_FILE} \
- && CHECKSUM=$(sha256sum ${ADMINER_FILE} | awk '{print $1}') \
- && if [ "${CHECKSUM}" != "${SHA256_HASH}" ]; then echo "ERROR: Checksum does not match!" && exit 1; fi \
- && mkdir /adminer && mv ${ADMINER_FILE} /adminer/index.php \
- && wget -q https://raw.githubusercontent.com/vrana/adminer/master/designs/${THEME}/adminer.css -P /adminer \
- && apk del build-dependencies \
- && rm -rf /var/cache/apk/* /tmp/*
+WORKDIR /srv
+EXPOSE 80
 
-COPY run.sh /usr/local/bin/run.sh
-RUN chmod +x /usr/local/bin/run.sh
+ENTRYPOINT ["dumb-init", "--"]
 
-EXPOSE 8888
-
-CMD ["/sbin/tini", "--", "run.sh"]
+CMD /usr/bin/php \
+    -d memory_limit=$MEMORY \
+    -d upload_max_filesize=$UPLOAD \
+    -d post_max_size=$UPLOAD \
+    -S 0.0.0.0:80
