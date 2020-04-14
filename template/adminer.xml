@@ -15,7 +15,7 @@
   <Networking>
     <Publish>
       <Port>
-        <ContainerPort>80</ContainerPort>
+        <ContainerPort>8888</ContainerPort>
         <Protocol>tcp</Protocol>
       </Port>
     </Publish>
