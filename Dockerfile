@@ -27,7 +27,7 @@ RUN echo '@testing http://nl.alpinelinux.org/alpine/edge/testing' >> /etc/apk/re
     rm -rf /var/cache/apk/*
 
 WORKDIR /srv
-EXPOSE 80
+EXPOSE 8888
 
 ENTRYPOINT ["dumb-init", "--"]
 
@@ -35,4 +35,4 @@ CMD /usr/bin/php \
     -d memory_limit=$MEMORY \
     -d upload_max_filesize=$UPLOAD \
     -d post_max_size=$UPLOAD \
-    -S 0.0.0.0:80
+    -S 0.0.0.0:8888
