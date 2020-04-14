@@ -21,5 +21,5 @@
     </Publish>
   </Networking>
   <Data/>
-  <Config Name="WebUI Port" Target="8888" Default="8888" Mode="tcp" Description="WebUI Port: 80" Type="Port" Display="always" Required="true" Mask="false"/>
+  <Config Name="WebUI Port" Target="8888" Default="8888" Mode="tcp" Description="WebUI Port: 8888" Type="Port" Display="always" Required="true" Mask="false"/>
 </Container>
